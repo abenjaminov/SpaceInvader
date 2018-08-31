@@ -9,11 +9,13 @@ function Draw() {
 }
 
 function Update(gameTime) {
-    gameShip.Update();
+    gameShip.Update({Height : canvas.height, Width : canvas.width}, gameTime);
 }
 
+var gameTime = 0;
 function Play() {
-    Update();
+    gameTime += 10;
+    Update(gameTime);
     Draw();
 }
 
