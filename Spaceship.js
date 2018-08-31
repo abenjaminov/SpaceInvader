@@ -8,6 +8,7 @@ class Spaceship {
         this.VerticalAcceleration = 0;
         this.HorizontalAcceleration = 0;
         this.Acc = 0.05;
+        this.Cannon = new ShipCannon(this);
     }
 
     Draw(Context) {
@@ -16,6 +17,8 @@ class Spaceship {
         Context.fillStyle = "Blue";
         Context.fill();
         Context.closePath();
+
+        this.Cannon.Draw(Context);
     }
 
     Update(GameBoard, gameTime) {
@@ -62,5 +65,7 @@ class Spaceship {
 
         this.X = Math.max(0, Math.min(this.X, GameBoard.Width - this.Width));
         this.Y = Math.max(0, Math.min(this.Y, GameBoard.Height - this.Height));
+
+        this.Cannon.Update(gameTime);
     }
 }
