@@ -3,8 +3,11 @@ var ctx = canvas.getContext("2d");
 
 var gameShip = new Spaceship(canvas.width / 2, canvas.height - 100,2);
 
+var backgroundImage = document.getElementById("background");
+
 function Draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(backgroundImage,0, 0, canvas.width, canvas.height);
     gameShip.Draw(ctx);
 }
 
