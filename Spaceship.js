@@ -9,14 +9,11 @@ class Spaceship {
         this.HorizontalAcceleration = 0;
         this.Acc = 0.05;
         this.Cannon = new ShipCannon(this);
+        this.image = document.getElementById("ship_image");
     }
 
     Draw(Context) {
-        Context.beginPath();
-        Context.rect(this.X, this.Y, this.Width, this.Height);
-        Context.fillStyle = "Blue";
-        Context.fill();
-        Context.closePath();
+        Context.drawImage(this.image,this.X, this.Y, this.Width, this.Height);
 
         this.Cannon.Draw(Context);
     }
