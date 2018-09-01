@@ -1,11 +1,11 @@
-class Particle {
+class Particle extends GameObject {
     constructor(x, y, color, width, height, maxSpeed, acceleration, angle, timeSpan, gameTime) {
-        this.X = x;
-        this.Y = y;
+        super(x,y,maxSpeed,width,height);
+
+
         this.Color = color;
-        this.Width = width;
-        this.Height = height;
-        this.MaxSpeed = maxSpeed;
+        
+        
         this.Acceleration = acceleration;
         this.Angle = angle;
         this.TimeSpan = timeSpan;
@@ -14,6 +14,8 @@ class Particle {
     }
 
     Draw(Context) {
+        super.Draw(Context);
+
         Context.beginPath();
         Context.arc(this.X, this.Y, this.Width, 0, Math.PI*2);
         Context.fillStyle = this.Color;
@@ -22,12 +24,13 @@ class Particle {
     }
 
     Update(gameTime) {
+        super.Update({}, gameTime)
         if(this.TimeSpan && gameTime - this.Birth > this.TimeSpan) {
             // Kill Particle
             this.isAlive = false;
         } else {
-            this.X += Math.sin(this.Angle) * this.MaxSpeed;
-            this.Y += Math.cos(this.Angle) * this.MaxSpeed;
+            this.X += Math.sin(this.Angle) * this.Speed;
+            this.Y += Math.cos(this.Angle) * this.Speed;
         }
     }
 }

@@ -1,24 +1,23 @@
-class Spaceship {
+class Spaceship extends GameObject {
     constructor(X, Y, Speed) {
-        this.X = X;
-        this.Y = Y;
-        this.Width = 29 ;
-        this.Height = 50;
-        this.Speed = Speed;
+        super(X, Y, Speed, 29, 50);
+
         this.VerticalAcceleration = 0;
         this.HorizontalAcceleration = 0;
         this.Acc = 0.05;
         this.Cannon = new ShipCannon(this);
-        this.image = document.getElementById("ship_image");
+        super.image = document.getElementById("ship_image");
     }
 
     Draw(Context) {
-        Context.drawImage(this.image,this.X, this.Y, this.Width, this.Height);
+        super.Draw(Context);
 
-        this.Cannon.Draw(Context);
+        this.Cannon.Draw(Context);  
     }
 
     Update(GameBoard, gameTime) {
+        super.Update(GameBoard, gameTime);
+
         var movementVector = { x: 0, y:0 }
 
         if(Keyboard.isKeyDown(Keyboard.keyCodes.Space)) {
