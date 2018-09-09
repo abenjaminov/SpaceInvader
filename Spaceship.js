@@ -1,6 +1,6 @@
 class Spaceship extends GameObject {
     constructor(X, Y, Speed) {
-        super(X, Y, Speed, 29, 50);
+        super(X, Y, Speed, 19, 40);
 
         this.VerticalAcceleration = 0;
         this.HorizontalAcceleration = 0;
@@ -10,18 +10,16 @@ class Spaceship extends GameObject {
     }
 
     Draw(Context) {
-        super.Draw(Context);
-
-        this.Cannon.Draw(Context);  
+        super.Draw(Context);  
     }
 
-    Update(GameBoard, gameTime) {
+    Update(GameBoard, gameTime, gameObjectManager) {
         super.Update(GameBoard, gameTime);
 
         var movementVector = { x: 0, y:0 }
 
         if(Keyboard.isKeyDown(Keyboard.keyCodes.Space)) {
-            this.Cannon.Shoot(gameTime);
+            this.Cannon.Shoot(gameTime, gameObjectManager);
         }
 
         if(Keyboard.isKeyDown(Keyboard.keyCodes.RightArrow)) {

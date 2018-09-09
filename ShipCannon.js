@@ -4,22 +4,20 @@ class ShipCannon {
     constructor(OwnerShip) {
         this.OwnerShip = OwnerShip;
         
-        this.Particles = [];
         this.Cooldown = CANNON_COOLDOWN;
     }
     
-    Shoot(gameTime) {
+    Shoot(gameTime, gameObjetManager) {
         if(this.Cooldown === 0) {
-            let newParticle = new Particle(this.X, this.Y, "Red", 5,5,4,0.15,Math.PI,false,gameTime);
-
-            this.Particles.push(newParticle);
+            let newParticle = new Particle(this.X, this.Y, "Red", 3,3,8,0.15,Math.PI,false,gameTime);
 
             this.Cooldown = CANNON_COOLDOWN;
+            gameObjetManager.AddShipShot(newParticle)
         }
     }
 
     Draw(Context) {
-        this.Particles.forEach((p) => p.Draw(Context));
+        
     }
 
     Update(gameTime) {
@@ -29,7 +27,5 @@ class ShipCannon {
 
         this.X  = this.OwnerShip.X + this.OwnerShip.Width / 2;
         this.Y = this.OwnerShip.Y;
-
-        this.Particles.forEach((p) => p.Update(gameTime));
     }
 }
