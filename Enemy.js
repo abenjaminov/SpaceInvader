@@ -7,17 +7,17 @@ class Enemy extends GameObject {
         this.Angle = 0;
         //console.log("Enemy " + X + ", " + Y);
 
+        this.Angle = this.GetRandomAngle(Gameboard);
+        
+    }
+
+    GetRandomAngle(Gameboard) {
         var destinationPoint = {
             X : Gameboard.Width / 2,
             Y : GetRandomNum(0, Gameboard.Height / 2)
         }
 
-        this.Angle = GetDirectionToPoint(destinationPoint, {X : this.X, Y: this.Y});
-        
-    }
-
-    GetRandomAngle(minAngle, maxAngle) {
-        return (Math.random() * maxAngle) + minAngle;
+        return GetDirectionToPoint(destinationPoint, {X : this.X, Y: this.Y});
     }
 
     Draw(Context) {
@@ -35,8 +35,7 @@ class Enemy extends GameObject {
             (this.Y < -this.Height && !IsInQuarters(this.Angle,["1","2"])) ||
             (this.Y > GameBoard.Height && !IsInQuarters(this.Angle,["3","4"]))) {
 
-            this.Angle += Math.PI;
-            this.Angle += GetRandomNum(-Math.PI / 10, Math.PI / 10);
+            this.Angle += this.GetRandomAngle(Gameboard);
         }
 
         this.X += Math.cos(this.Angle) * this.Speed;
