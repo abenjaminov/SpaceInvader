@@ -12,7 +12,7 @@ class Enemy extends GameObject {
             Y : GetRandomNum(0, Gameboard.Height / 2)
         }
 
-        this.Angle = 
+        this.Angle = GetDirectionToPoint(destinationPoint, {X : this.X, Y: this.Y});
         
     }
 
