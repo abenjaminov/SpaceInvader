@@ -9,7 +9,7 @@ class ShipCannon {
     
     Shoot(gameTime, gameObjetManager) {
         if(this.Cooldown === 0) {
-            let newParticle = new Particle(this.X, this.Y, "Red", 3,3,8,0.15,Math.PI,false,gameTime);
+            let newParticle = new Particle(this.X, this.Y, "Red", 3,3,8,0.15,1.5*Math.PI,false,gameTime);
 
             this.Cooldown = CANNON_COOLDOWN;
             gameObjetManager.AddShipShot(newParticle)

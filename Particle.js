@@ -29,8 +29,8 @@ class Particle extends GameObject {
             // Kill Particle
             this.isAlive = false;
         } else {
-            this.X += Math.sin(this.Angle) * this.Speed;
-            this.Y += Math.cos(this.Angle) * this.Speed;
+            this.X += Math.cos(this.Angle) * this.Speed;
+            this.Y += Math.sin(this.Angle) * this.Speed;
         }
     }
 }

@@ -14,7 +14,7 @@ class GameObjectManager {
     Update(gameTime, GameBoard) {
         this.ShipShots.forEach((p) => p.Update(gameTime));
         this.Enemies.forEach((e) => e.Update(GameBoard, gameTime));
-        this.EnemyGenerator.Update(GameBoard,this);
+        this.EnemyGenerator.Update(GameBoard,gameTime);
     }
 
     AddEnemy(Enemy) {

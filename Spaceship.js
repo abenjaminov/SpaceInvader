@@ -10,7 +10,7 @@ class Spaceship extends GameObject {
     }
 
     Draw(Context) {
-        super.Draw(Context);  
+        super.Draw(Context);
     }
 
     Update(GameBoard, gameTime, gameObjectManager) {

@@ -4,35 +4,41 @@ class EnemyGenerator {
     constructor(GameBoard, GameObjectManager) {
         this.EnemyImage = document.getElementById("enemy1");
         this.Enemies = [];
-        this.EnemyCooldown
+        this.EnemyCooldown = 0;
         this.objectManager = GameObjectManager;
         this.GameBoard = GameBoard;
+        this.EnemyCount = 0;
     }
 
-    GenerateEnemy() {
-        var EnemyWidth = 30;
-        var EnemyHeight = 30;
-        var EnemySpeed = 1;
+    GenerateEnemy(GameBoard) {
+        if(this.EnemyCooldown <= 0) {
+            this.EnemyCount++;
+            var EnemyWidth = 30;
+            var EnemyHeight = 30;
+            var EnemySpeed = 1;
 
-        var enemyBoardHeight = this.GameBoard.Height / 3;
-        var enemyBoardWidth = this.GameBoard.Width;
-        
-        var spawnY = Math.floor(Math.random() * enemyBoardHeight) + EnemyHeight;
-        var spawnX = -EnemyWidth - EnemySpeed;
+            var enemyBoardHeight = this.GameBoard.Height / 3;
+            var enemyBoardWidth = this.GameBoard.Width;
+            
+            var spawnY = Math.floor(GetRandomNum(EnemyHeight, enemyBoardHeight));
+            var spawnX = -EnemyWidth - EnemySpeed;
 
-        if((Math.floor(Math.random() * 2) + 1) === 1 ) {
-            spawnX = enemyBoardWidth + 5;
-        } 
+            if(Math.floor(GetRandomNum(0,2)) === 1 ) {
+                spawnX = enemyBoardWidth + 5;
+            } 
 
-        this.objectManager.AddEnemy(new Enemy(spawnX, spawnY, EnemySpeed, EnemyWidth, EnemyHeight, this.EnemyImage));
+            this.objectManager.AddEnemy(new Enemy(GameBoard, spawnX, spawnY, EnemySpeed, EnemyWidth, EnemyHeight, this.EnemyImage, this.EnemyCount));
+            this.EnemyCooldown = ENEMY_COOLDOWN;
+        }
     }
 
-    Update(gameTime) {
+    Update(GameBoard, gameTime) {
+        if(Keyboard.isKeyDown(Keyboard.keyCodes.E)) {
+            this.GenerateEnemy(GameBoard);
+        }
+
         if(this.EnemyCooldown > 0) {
             this.EnemyCooldown--;
-        } else {
-            this.GenerateEnemy();
-            this.EnemyCooldown = ENEMY_COOLDOWN;
         }
     }
 
