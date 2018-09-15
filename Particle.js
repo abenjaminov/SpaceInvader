@@ -1,11 +1,7 @@
 class Particle extends GameObject {
     constructor(x, y, color, width, height, maxSpeed, acceleration, angle, timeSpan, gameTime) {
         super(x,y,maxSpeed,width,height);
-
-
         this.Color = color;
-        
-        
         this.Acceleration = acceleration;
         this.Angle = angle;
         this.TimeSpan = timeSpan;
@@ -23,7 +19,7 @@ class Particle extends GameObject {
         Context.closePath();
     }
 
-    Update(gameTime) {
+    Update(gameTime, gameBoard) {
         super.Update({}, gameTime)
         if(this.TimeSpan && gameTime - this.Birth > this.TimeSpan) {
             // Kill Particle
@@ -31,6 +27,15 @@ class Particle extends GameObject {
         } else {
             this.X += Math.cos(this.Angle) * this.Speed;
             this.Y += Math.sin(this.Angle) * this.Speed;
+
+            this.CalculateIsAlive(gameBoard);
         }
+    }
+
+    CalculateIsAlive(gameBoard) {
+        if(this.X < 0 || this.X > gameBoard.Width + this.Width ||
+           this.Y < 0 || this.Y > gameBoard.height + this.Height) {
+               this.isAlive = false;
+           }
     }
 }

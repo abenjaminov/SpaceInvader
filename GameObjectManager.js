@@ -11,10 +11,22 @@ class GameObjectManager {
         this.Enemies.forEach((e) => e.Draw(Context));
     }
 
-    Update(gameTime, GameBoard) {
-        this.ShipShots.forEach((p) => p.Update(gameTime));
-        this.Enemies.forEach((e) => e.Update(GameBoard, gameTime));
-        this.EnemyGenerator.Update(GameBoard,gameTime);
+    Update(gameTime, gameBoard) {
+        this.ManageShots(gameTime, gameBoard)
+
+        this.Enemies.forEach((e) => e.Update(gameBoard, gameTime));
+        this.EnemyGenerator.Update(gameBoard,gameTime);
+    }
+
+    ManageShots(gameBoard, gameTime) {
+        this.ShipShots.forEach((p) => p.Update(gameTime, gameBoard));
+
+        for(var nIndex = 0; nIndex < this.ShipShots.length; nIndex++) {
+            if(!this.ShipShots[nIndex].isAlive) {
+                this.ShipShots.splice(nIndex,1);
+                console.log("dead");
+            }
+        }
     }
 
     AddEnemy(Enemy) {
