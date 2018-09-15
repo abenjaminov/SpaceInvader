@@ -27,7 +27,7 @@ class EnemyGenerator {
                 spawnX = enemyBoardWidth + 5;
             } 
 
-            this.objectManager.AddEnemy(new Enemy(GameBoard, spawnX, spawnY, EnemySpeed, EnemyWidth, EnemyHeight, this.EnemyImage, this.EnemyCount));
+            this.objectManager.AddEnemy(new Enemy(GameBoard, spawnX, spawnY, EnemySpeed, EnemyWidth, EnemyHeight, this.EnemyImage, this.EnemyCount,10));
             this.EnemyCooldown = ENEMY_COOLDOWN;
         }
     }

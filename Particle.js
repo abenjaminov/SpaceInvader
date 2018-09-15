@@ -21,7 +21,7 @@ class Particle extends GameObject {
 
     Update(gameTime, gameBoard) {
         super.Update({}, gameTime)
-        if(this.TimeSpan && gameTime - this.Birth > this.TimeSpan) {
+        if(gameTime && this.TimeSpan && gameTime - this.Birth > this.TimeSpan) {
             // Kill Particle
             this.isAlive = false;
         } else {
