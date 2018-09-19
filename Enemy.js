@@ -6,11 +6,11 @@ class Enemy extends GameObject {
         this.Number = number;
         this.Angle = 0;
         this.Life = life;
-        this.playExplosion = false;
+        this.isDieing = false;
         this.isAlive = true;
         this.Angle = this.GetRandomAngle(Gameboard);
 
-        this.explosionSprite = new Sprite(SpritesFolders.explosion, 15, 20, 64,64);
+        this.explosionSprite = new Sprite(SpritesFolders.explosion, 15, 3, 64,64);
         
     }
 
@@ -24,7 +24,7 @@ class Enemy extends GameObject {
     }
 
     Draw(Context) {
-        if(this.playExplosion) {
+        if(this.isDieing) {
             this.explosionSprite.Draw(Context, this.X, this.Y);
         } else {
             super.Draw(Context);
@@ -40,7 +40,7 @@ class Enemy extends GameObject {
     }
 
     Update(Gameboard, gameTime)  {
-        if(this.playExplosion) {
+        if(this.isDieing) {
             this.explosionSprite.Update(gameTime);
             if(this.explosionSprite.spriteEnded) {
                 this.isAlive = false;
@@ -72,10 +72,12 @@ class Enemy extends GameObject {
     }
 
     Hit(Damage) {
-        this.Life -= Damage;
+        if(!this.isDieing) {
+            this.Life -= Damage;
 
-        if(this.Life <= 0) {
-            this.playExplosion = true;
+            if(this.Life <= 0) {
+                this.isDieing = true;
+            }
         }
     }
 }

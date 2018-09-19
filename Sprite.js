@@ -11,6 +11,7 @@ class Sprite {
         this.Height = height;
         this.currentImage = 0;
         this.numOfImages = numOfImages;
+        this.timePerImage = timePerImage;
         this.PreviousImageTime = timePerImage;
         this.spriteEnded = false;
     }
@@ -30,6 +31,7 @@ class Sprite {
             }
 
             this.currentImage = (this.currentImage + 1) % this.numOfImages;
+            this.PreviousImageTime = this.timePerImage;
         }
     }
 }

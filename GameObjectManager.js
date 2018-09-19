@@ -23,19 +23,21 @@ class GameObjectManager {
 
         for(var enemyIndex = 0; enemyIndex < this.Enemies.length; enemyIndex++) {
             var enemy = this.Enemies[enemyIndex];
-            var enemyCenter = enemy.GetCenter();
-
-            for(var shotIndex = 0; shotIndex < this.ShipShots.length; shotIndex++) {
-                var shot = this.ShipShots[shotIndex];
-                
-                var distance = Math.sqrt(Math.pow(enemyCenter.X - shot.X, 2) + Math.pow(enemyCenter.Y - shot.Y, 2));
-
-                if(distance <= enemy.Width / 2) {
-                    this.ShipShots.splice(shotIndex, 1);
-                    enemy.Hit(10);
-
-                    break;       
-                }
+            if(!enemy.isDieing) {
+                var enemyCenter = enemy.GetCenter();
+    
+                for(var shotIndex = 0; shotIndex < this.ShipShots.length; shotIndex++) {
+                    var shot = this.ShipShots[shotIndex];
+                    
+                    var distance = Math.sqrt(Math.pow(enemyCenter.X - shot.X, 2) + Math.pow(enemyCenter.Y - shot.Y, 2));
+    
+                    if(distance <= enemy.Width / 2) {
+                        this.ShipShots.splice(shotIndex, 1);
+                        enemy.Hit(10);
+    
+                        break;       
+                    }
+                }   
             }
 
             if(!enemy.isAlive) {
