@@ -6,8 +6,11 @@ class Enemy extends GameObject {
         this.Number = number;
         this.Angle = 0;
         this.Life = life;
+        this.playExplosion = false;
         this.isAlive = true;
         this.Angle = this.GetRandomAngle(Gameboard);
+
+        this.explosionSprite = new Sprite(SpritesFolders.explosion, 15, 20, 64,64);
         
     }
 
@@ -21,30 +24,39 @@ class Enemy extends GameObject {
     }
 
     Draw(Context) {
-        super.Draw(Context);
-        Context.font = "12px Arial Yellow";
-        Context.fillStyle = "Yellow";
-        Context.fillText(this.Life, this.X + this.Width, this.Y + this.Height / 2);
+        if(this.playExplosion) {
+            this.explosionSprite.Draw(Context, this.X, this.Y);
+        } else {
+            super.Draw(Context);
+            Context.font = "12px Arial Yellow";
+            Context.fillStyle = "Yellow";
+            Context.fillText(this.Life, this.X + this.Width, this.Y + this.Height / 2);
 
-        var center = this.GetCenter();
-        var part = new Particle(center.X, center.Y, "Red", 3, 3, 0 ,0 ,0 ,false, false);
+            var center = this.GetCenter();
+            var part = new Particle(center.X, center.Y, "Red", 3, 3, 0 ,0 ,0 ,false, false);
 
-        part.Draw(Context);
+            part.Draw(Context);
+        }
     }
 
     Update(Gameboard, gameTime)  {
-        //console.log("Enemy " + this.Number + "{ X:" + this.X + ", Y : " + this.Y + ", Angle : " + this.Angle + "}");
-
-        if((this.X < -this.Width && !IsInQuarters(this.Angle,["1","4"])) || 
+        if(this.playExplosion) {
+            this.explosionSprite.Update(gameTime);
+            if(this.explosionSprite.spriteEnded) {
+                this.isAlive = false;
+            }
+        } else {
+            if((this.X < -this.Width && !IsInQuarters(this.Angle,["1","4"])) || 
             (this.X > GameBoard.Width && !IsInQuarters(this.Angle,["2","3"])) ||
             (this.Y < -this.Height && !IsInQuarters(this.Angle,["1","2"])) ||
             (this.Y > GameBoard.Height && !IsInQuarters(this.Angle,["3","4"]))) {
 
-            this.Angle += this.GetRandomAngle(Gameboard);
-        }
+                this.Angle += this.GetRandomAngle(Gameboard);
+            }
 
-        this.X += Math.cos(this.Angle) * this.Speed;
-        this.Y += Math.sin(this.Angle) * this.Speed;   
+            this.X += Math.cos(this.Angle) * this.Speed;
+            this.Y += Math.sin(this.Angle) * this.Speed;   
+        }
     }
 
     GetCenter() {
@@ -63,7 +75,7 @@ class Enemy extends GameObject {
         this.Life -= Damage;
 
         if(this.Life <= 0) {
-            this.isAlive = false;
+            this.playExplosion = true;
         }
     }
 }

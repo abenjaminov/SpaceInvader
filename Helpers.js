@@ -17,6 +17,10 @@ var Quarters = {
     }
 }
 
+var SpritesFolders = {
+    explosion : "Sprites/explosion"
+}
+
 function IsInQuarters(Angle, quarters) {
     var isInQuarters = false;
 
