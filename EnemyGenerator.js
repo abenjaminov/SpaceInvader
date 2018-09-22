@@ -13,8 +13,8 @@ class EnemyGenerator {
     GenerateEnemy(GameBoard) {
         if(this.EnemyCooldown <= 0) {
             this.EnemyCount++;
-            var EnemyWidth = 30;
-            var EnemyHeight = 30;
+            var EnemyWidth = 34;
+            var EnemyHeight = 34;
             var EnemySpeed = 1;
 
             var enemyBoardHeight = this.GameBoard.Height / 3;

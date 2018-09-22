@@ -11,8 +11,6 @@ class Enemy extends GameObject {
         this.Angle = this.GetRandomAngle(Gameboard);
 
         this.explosionSprite = new Sprite(SpritesFolders.explosion, 15, 3, 64,64);
-        //Check
-        
     }
 
     GetRandomAngle(Gameboard) {

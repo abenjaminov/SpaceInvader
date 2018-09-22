@@ -1,6 +1,6 @@
 class Spaceship extends GameObject {
     constructor(X, Y, Speed) {
-        super(X, Y, Speed, 19, 40);
+        super(X, Y, Speed, 64, 64);
 
         this.VerticalAcceleration = 0;
         this.HorizontalAcceleration = 0;
