@@ -12,13 +12,14 @@ class GameObjectManager {
     }
 
     Update(gameTime, gameBoard) {
+        this.EnemyGenerator.Update(gameBoard,gameTime);
         this.UpdateShots(gameTime, gameBoard)
 
-        this.UpdateEnemies(gameTime, gameBoard);
-        this.EnemyGenerator.Update(gameBoard,gameTime);
+        return this.UpdateEnemies(gameTime, gameBoard);
     }
 
     UpdateEnemies(gameTime, gameBoard) {
+        var pointsEarned = 0;
         this.Enemies.forEach((e) => e.Update(gameBoard, gameTime));
 
         for(var enemyIndex = 0; enemyIndex < this.Enemies.length; enemyIndex++) {
@@ -41,10 +42,13 @@ class GameObjectManager {
             }
 
             if(!enemy.isAlive) {
+                pointsEarned += enemy.Points;
                 this.Enemies.splice(enemyIndex, 1);
                 enemyIndex--;
             }
         }
+
+        return pointsEarned;
     }
 
     UpdateShots(gameBoard, gameTime) {

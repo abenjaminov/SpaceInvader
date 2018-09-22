@@ -1,5 +1,5 @@
 class Enemy extends GameObject {
-    constructor(Gameboard, X, Y, Speed, Width, Height, image, number, life) {
+    constructor(Gameboard, X, Y, Speed, Width, Height, image, number, life, points) {
         super(X, Y, Speed, Width, Height);
 
         this.image = image;
@@ -9,6 +9,7 @@ class Enemy extends GameObject {
         this.isDieing = false;
         this.isAlive = true;
         this.Angle = this.GetRandomAngle(Gameboard);
+        this.Points = points;
 
         this.explosionSprite = new Sprite(SpritesFolders.explosion, 15, 3, 64,64);
     }
@@ -27,10 +28,7 @@ class Enemy extends GameObject {
             this.explosionSprite.Draw(Context, this.X, this.Y);
         } else {
             super.Draw(Context);
-            Context.font = "12px Arial Yellow";
-            Context.fillStyle = "Yellow";
-            Context.fillText(this.Life, this.X + this.Width, this.Y + this.Height / 2);
-
+            
             var center = this.GetCenter();
             var part = new Particle(center.X, center.Y, "Red", 3, 3, 0 ,0 ,0 ,false, false);
 
