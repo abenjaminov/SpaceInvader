@@ -1,7 +1,10 @@
+var windowHeight = window.innerHeight;
+
 var canvas = document.getElementById("gameCanvas");
+canvas.height = windowHeight;
 var ctx = canvas.getContext("2d");
 
-var gameDetailsDisplayRectHeight = 60;
+var gameDetailsDisplayRectHeight = windowHeight * 0.08;
 
 var gameShip = new Spaceship(canvas.width / 2, canvas.height - gameDetailsDisplayRectHeight - 100,2);
 

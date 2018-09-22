@@ -5,11 +5,12 @@ class ShipCannon {
         this.OwnerShip = OwnerShip;
         
         this.Cooldown = CANNON_COOLDOWN;
+        this.shotImage = document.getElementById("shot");
     }
     
     Shoot(gameTime, gameObjetManager) {
         if(this.Cooldown === 0) {
-            let newParticle = new Particle(this.X, this.Y, "Red", 3,3,8,0.15,1.5*Math.PI,false,gameTime);
+            let newParticle = new Particle(this.X, this.Y, "Red", 3,7,8,0.15,1.5*Math.PI,false,gameTime,this.shotImage);
 
             this.Cooldown = CANNON_COOLDOWN;
             gameObjetManager.AddShipShot(newParticle)
