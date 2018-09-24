@@ -3,7 +3,6 @@ class GameObjectManager {
         this.Enemies = [];
         this.ShipShots = [];
         this.EnemyShots = [];
-        this.EnemyGenerator = new EnemyGenerator(GameBoard, this);
         this.SpaceShip = spaceShip;
     }
 
@@ -15,7 +14,6 @@ class GameObjectManager {
 
     Update(gameTime, gameBoard) {
         this.SpaceShip.Update(GameBoard, gameTime, objectManager);
-        this.EnemyGenerator.Update(gameBoard,gameTime);
         this.UpdateShots(gameTime, gameBoard)
 
         return this.UpdateEnemies(gameTime, gameBoard);

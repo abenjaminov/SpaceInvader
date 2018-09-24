@@ -29,14 +29,14 @@ class EnemyGenerator {
 
             this.objectManager.AddEnemy(new Enemy(GameBoard, spawnX, spawnY, EnemySpeed, EnemyWidth, EnemyHeight, this.EnemyImage, this.EnemyCount,10, 10));
             this.EnemyCooldown = ENEMY_COOLDOWN;
+
+            return true;
         }
+
+        return false;
     }
 
     Update(GameBoard, gameTime) {
-        if(Keyboard.isKeyDown(Keyboard.keyCodes.E)) {
-            this.GenerateEnemy(GameBoard);
-        }
-
         if(this.EnemyCooldown > 0) {
             this.EnemyCooldown--;
         }
