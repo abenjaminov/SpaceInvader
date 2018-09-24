@@ -48,7 +48,7 @@ class Enemy extends GameObject {
             (this.Y < -this.Height && !IsInQuarters(this.Angle,["1","2"])) ||
             (this.Y > GameBoard.Height && !IsInQuarters(this.Angle,["3","4"]))) {
 
-                this.Angle += this.GetRandomAngle(Gameboard);
+                this.Angle = this.GetRandomAngle(Gameboard);
             }
 
             this.X += Math.cos(this.Angle) * this.Speed;

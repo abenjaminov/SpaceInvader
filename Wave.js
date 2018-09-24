@@ -1,10 +1,16 @@
 class Wave {
     constructor(name, gameBoard, numOfEnemies,miniWaves, gameObjectManager, enemyGenerator) {
         this.Name = name;
+        this.MiniWaves = miniWaves;
         this.NumberOfEnemies = numOfEnemies;
         this.ObjectManager = gameObjectManager;
         this.EnemyGenerator = enemyGenerator;
         this.GameBoard = gameBoard;
+        
+        this.ResetWave();
+    }
+
+    ResetWave() {
         this.StartWaveSequence = {
             enabled : false,
             ticks : 300,
@@ -15,10 +21,16 @@ class Wave {
             miniWave : 1,
             enemiesGenerated : 0,
             miniWaveGenerated : false,
-            numOfMiniWaves : miniWaves,
-            enemiesPerWave : numOfEnemies / miniWaves
+            numOfMiniWaves : this.MiniWaves,
+            enemiesPerWave : this.NumberOfEnemies / this.MiniWaves
         };
-        this.WaveDone = false;
+        this.EndWaveSequence = {
+            enabled : false,
+            ticks : 200,
+            onGoing : 0
+        };
+
+        this.WaveOver = false;
     }
 
     Start() {
@@ -31,6 +43,10 @@ class Wave {
             Context.font = ongoingFactor / 2 + "px Arial Yellow";
             Context.fillStyle = "Yellow";
             Context.fillText(this.Name, this.GameBoard.Width / 2 - ongoingFactor / 1.5, this.GameBoard.Height / 2 + ongoingFactor / 4);
+        } else if (this.EndWaveSequence.enabled) {
+            Context.font = "30px Arial Yellow";
+            Context.fillStyle = "Yellow";
+            Context.fillText("Wave over", this.GameBoard.Width / 2 - 50, this.GameBoard.Height / 2 + 30);
         }
     }
 
@@ -55,13 +71,20 @@ class Wave {
             if(this.ReleaseEnemiesSequence.miniWaveGenerated && this.ObjectManager.Enemies.length == 0) {
                 this.ReleaseEnemiesSequence.miniWave++;
 
-                if(this.ReleaseEnemiesSequence.miniWave >= this.ReleaseEnemiesSequence.numOfMiniWaves) {
-                    this.WaveDone = true;
+                if(this.ReleaseEnemiesSequence.miniWave > this.ReleaseEnemiesSequence.numOfMiniWaves) {
+                    this.EndWaveSequence.enabled = true;
                     this.ReleaseEnemiesSequence.enabled = false;
                 } else {
                     this.ReleaseEnemiesSequence.enemiesGenerated = 0;
                     this.ReleaseEnemiesSequence.miniWaveGenerated = false;
                 }
+            }
+        } else if(this.EndWaveSequence.enabled) {
+            this.EndWaveSequence.onGoing++;
+
+            if(this.EndWaveSequence.onGoing > this.EndWaveSequence.ticks) {
+                this.EndWaveSequence.enabled = false;
+                this.WaveOver = true;
             }
         }
     }

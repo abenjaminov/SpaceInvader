@@ -15,22 +15,19 @@ var objectManager = new GameObjectManager(GameBoard, gameShip);
 var enemyGenerator = new EnemyGenerator(GameBoard, objectManager);
 
 var Points = 0;
-var wave = new Wave("Wave 1", GameBoard, 50, 5, objectManager,enemyGenerator);
+var waveManager = new WaveManager(GameBoard, objectManager, enemyGenerator);
 
 function Draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(backgroundImage,0, 0, canvas.width, canvas.height);
-    wave.Draw(ctx);
+    waveManager.Draw(ctx);
     objectManager.Draw(ctx);
     gameDetails.Draw(ctx);
     
 }
 
 function Update(gameTime) {
-    if(Keyboard.isKeyDown(Keyboard.keyCodes.E)) {
-        wave.Start();
-    }
-    wave.Update();
+    waveManager.Update(gameTime);
     enemyGenerator.Update(gameTime, GameBoard);
     var pointsEarned = objectManager.Update(gameTime,GameBoard);
 
