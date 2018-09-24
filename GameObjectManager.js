@@ -1,17 +1,20 @@
 class GameObjectManager {
-    constructor(GameBoard) {
+    constructor(GameBoard, spaceShip) {
         this.Enemies = [];
         this.ShipShots = [];
         this.EnemyShots = [];
         this.EnemyGenerator = new EnemyGenerator(GameBoard, this);
+        this.SpaceShip = spaceShip;
     }
 
     Draw(Context) {
+        this.SpaceShip.Draw(ctx);
         this.ShipShots.forEach((p) => p.Draw(Context));
         this.Enemies.forEach((e) => e.Draw(Context));
     }
 
     Update(gameTime, gameBoard) {
+        this.SpaceShip.Update(GameBoard, gameTime, objectManager);
         this.EnemyGenerator.Update(gameBoard,gameTime);
         this.UpdateShots(gameTime, gameBoard)
 
