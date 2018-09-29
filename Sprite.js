@@ -14,10 +14,20 @@ class Sprite {
         this.timePerImage = timePerImage;
         this.PreviousImageTime = timePerImage;
         this.spriteEnded = false;
+        this.DrawingPosition = null;
     }
 
-    Draw(Context, X, Y) {
-        Context.drawImage(this.images[this.currentImage], X, Y, this.Width, this.Height);
+    SetDrawingPosition(x, y) {
+        this.DrawingPosition = { X : x, Y : y}
+    }
+
+    Draw(Context, x, y) {
+        if(!this.spriteEnded) {
+            if(this.DrawingPosition == null) {
+                this.DrawingPosition = { X : x, Y : y};
+            }
+            Context.drawImage(this.images[this.currentImage], this.DrawingPosition.X, this.DrawingPosition.Y, this.Width, this.Height);
+        }
     }
 
     Update(gameTime) {

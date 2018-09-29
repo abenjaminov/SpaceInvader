@@ -2,6 +2,8 @@ class Enemy extends GameObject {
     constructor(Gameboard, X, Y, Speed, Width, Height, image, number, life, points, SpaceShip, gameObjectManager) {
         super(X, Y, Speed, Width, Height);
 
+        this.Type = GameObjectTypes.Enemy;
+
         this.image = image;
         this.Number = number;
         this.Angle = 0;
@@ -13,7 +15,7 @@ class Enemy extends GameObject {
         this.gameObjectManager = gameObjectManager;
 
         this.explosionSprite = new Sprite(SpritesFolders.explosion, 15, 3, 64,64);
-        this.Cannon = new ShipCannon(this, DefaultAngles.Down, SpaceShip);
+        this.Cannon = new ShipCannon(this,2,CannonFireRate.Slow,CannonFireSpeed.Slow, DefaultAngles.Down, SpaceShip);
     }
 
     GetRandomAngle(Gameboard) {
@@ -30,11 +32,6 @@ class Enemy extends GameObject {
             this.explosionSprite.Draw(Context, this.X, this.Y);
         } else {
             super.Draw(Context);
-            
-            var center = this.GetCenter();
-            var part = new Particle(center.X, center.Y, "Red", 3, 3, 0 ,0 ,0 ,false, false);
-
-            part.Draw(Context);
         }
     }
 
@@ -45,8 +42,8 @@ class Enemy extends GameObject {
                 this.isAlive = false;
             }
         } else {
-            //this.Cannon.Shoot(gameTime, this.gameObjectManager);
-            //this.Cannon.Update(gameTime, this.gameObjectManager);
+            this.Cannon.Shoot(gameTime, this.gameObjectManager);
+            this.Cannon.Update(gameTime, this.gameObjectManager);
 
             if((this.X < -this.Width && !IsInQuarters(this.Angle,["1","4"])) || 
             (this.X > Gameboard.Width && !IsInQuarters(this.Angle,["2","3"])) ||
@@ -59,18 +56,6 @@ class Enemy extends GameObject {
             this.X += Math.cos(this.Angle) * this.Speed;
             this.Y += Math.sin(this.Angle) * this.Speed;   
         }
-    }
-
-    GetCenter() {
-        var halfCross = Math.sqrt(Math.pow(this.Width / 2,2) + Math.pow(this.Height / 2, 2));
-        var angleRadians = 0.25 * Math.PI;
-
-        var center = {
-            X : this.X + halfCross * Math.cos(angleRadians),
-            Y : this.Y + halfCross * Math.sin(angleRadians)
-        }
-
-        return center;
     }
 
     Hit(Damage) {

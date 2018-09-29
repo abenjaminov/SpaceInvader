@@ -6,6 +6,7 @@ class GameObject {
         this.Height = Height;
         this.Speed = Speed;
         this.image = undefined;
+        this.Type = GameObjectTypes.GameObject;
     }
 
     Draw(Context) {
@@ -17,7 +18,7 @@ class GameObject {
     Update(GameBoard, gameTime) {
     }
 
-    GetPoint() {
-        return {X : this.X, Y: this.Y};
+    GetCenterPoint() {
+        return {X : this.X + this.Width / 2, Y: this.Y + this.Height / 2};
     }
 }

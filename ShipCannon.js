@@ -1,16 +1,30 @@
-var CANNON_COOLDOWN = 20;
 var DefaultAngles = {
     Down : 0.5*Math.PI,
     Up : 1.5*Math.PI
 }
 
+var CannonFireSpeed = {
+    Slow : 1,
+    Medium : 2,
+    Fast : 4
+}
+
+var CannonFireRate = {
+    Slow : 300,
+    Medium : 150,
+    Fast : 30
+}
+
 class ShipCannon {
-    constructor(Owner, DefaultAngle = DefaultAngles.Down, Target) {
+    constructor(Owner,ShotScale,CannonCooldown,fireSpeed, DefaultAngle = DefaultAngles.Down, Target) {
         this.DefaultAngle = DefaultAngle;
         this.Owner = Owner;
         this.Target = Target;
         
-        this.Cooldown = CANNON_COOLDOWN;
+        this.FireSpeed = fireSpeed;
+        this.CANNON_COOLDOWN_TIME = CannonCooldown;
+        this.ShotScale = ShotScale;
+        this.Cooldown = 0;
         this.shotImage = document.getElementById("shot");
     }
     
@@ -19,12 +33,12 @@ class ShipCannon {
             var Angle = this.DefaultAngle;
 
             if(this.Target) {
-                Angle = GetDirectionToPoint(Target.GetPoint(), {X : this.X, Y: this.Y});
+                Angle = GetDirectionToPoint(this.Target.GetCenterPoint(), {X : this.X, Y: this.Y});
             }
 
-            let newParticle = new Particle(this.X, this.Y, "Red", 3,7,8,0.15,Angle,false,gameTime,this.shotImage);
+            let newParticle = new Particle(this.X, this.Y, "Red", 3 * this.ShotScale,7 * this.ShotScale,2 * this.FireSpeed  ,0.15,Angle,false,gameTime,this.Owner, this.shotImage);
 
-            this.Cooldown = CANNON_COOLDOWN;
+            this.Cooldown = this.CANNON_COOLDOWN_TIME;
             gameObjetManager.AddShipShot(newParticle)
         }
     }

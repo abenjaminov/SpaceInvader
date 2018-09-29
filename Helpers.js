@@ -17,6 +17,12 @@ var Quarters = {
     }
 }
 
+var GameObjectTypes = {
+    GameObject : 0,
+    Enemy : 1,
+    GameShip : 2
+}
+
 var SpritesFolders = {
     explosion : "Sprites/explosion"
 }
