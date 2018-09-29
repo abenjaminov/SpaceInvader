@@ -1,5 +1,5 @@
 class Enemy extends GameObject {
-    constructor(Gameboard, X, Y, Speed, Width, Height, image, number, life, points) {
+    constructor(Gameboard, X, Y, Speed, Width, Height, image, number, life, points, SpaceShip, gameObjectManager) {
         super(X, Y, Speed, Width, Height);
 
         this.image = image;
@@ -10,8 +10,10 @@ class Enemy extends GameObject {
         this.isAlive = true;
         this.Angle = this.GetRandomAngle(Gameboard);
         this.Points = points;
+        this.gameObjectManager = gameObjectManager;
 
         this.explosionSprite = new Sprite(SpritesFolders.explosion, 15, 3, 64,64);
+        this.Cannon = new ShipCannon(this, DefaultAngles.Down, SpaceShip);
     }
 
     GetRandomAngle(Gameboard) {
@@ -43,10 +45,13 @@ class Enemy extends GameObject {
                 this.isAlive = false;
             }
         } else {
+            //this.Cannon.Shoot(gameTime, this.gameObjectManager);
+            //this.Cannon.Update(gameTime, this.gameObjectManager);
+
             if((this.X < -this.Width && !IsInQuarters(this.Angle,["1","4"])) || 
-            (this.X > GameBoard.Width && !IsInQuarters(this.Angle,["2","3"])) ||
+            (this.X > Gameboard.Width && !IsInQuarters(this.Angle,["2","3"])) ||
             (this.Y < -this.Height && !IsInQuarters(this.Angle,["1","2"])) ||
-            (this.Y > GameBoard.Height && !IsInQuarters(this.Angle,["3","4"]))) {
+            (this.Y > Gameboard.Height && !IsInQuarters(this.Angle,["3","4"]))) {
 
                 this.Angle = this.GetRandomAngle(Gameboard);
             }

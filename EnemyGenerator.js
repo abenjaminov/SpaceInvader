@@ -10,7 +10,7 @@ class EnemyGenerator {
         this.EnemyCount = 0;
     }
 
-    GenerateEnemy(GameBoard) {
+    GenerateEnemy(GameBoard, SpaceShip) {
         if(this.EnemyCooldown <= 0) {
             this.EnemyCount++;
             var EnemyWidth = 34;
@@ -27,7 +27,7 @@ class EnemyGenerator {
                 spawnX = enemyBoardWidth + 5;
             } 
 
-            this.objectManager.AddEnemy(new Enemy(GameBoard, spawnX, spawnY, EnemySpeed, EnemyWidth, EnemyHeight, this.EnemyImage, this.EnemyCount,10, 10));
+            this.objectManager.AddEnemy(new Enemy(GameBoard, spawnX, spawnY, EnemySpeed, EnemyWidth, EnemyHeight, this.EnemyImage, this.EnemyCount,10, 10, SpaceShip,this.objectManager));
             this.EnemyCooldown = ENEMY_COOLDOWN;
 
             return true;

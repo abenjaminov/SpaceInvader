@@ -5,7 +5,7 @@ class Spaceship extends GameObject {
         this.VerticalAcceleration = 0;
         this.HorizontalAcceleration = 0;
         this.Acc = 0.05;
-        this.Cannon = new ShipCannon(this);
+        this.Cannon = new ShipCannon(this, DefaultAngles.Up);
         super.image = document.getElementById("ship_image");
     }
 

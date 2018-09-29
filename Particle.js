@@ -12,12 +12,6 @@ class Particle extends GameObject {
 
     Draw(Context) {
         super.Draw(Context);
-
-        // Context.beginPath();
-        // Context.arc(this.X, this.Y, this.Width, 0, Math.PI*2);
-        // Context.fillStyle = this.Color;
-        // Context.fill();
-        // Context.closePath();
     }
 
     Update(gameTime, gameBoard) {

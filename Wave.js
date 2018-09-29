@@ -1,11 +1,12 @@
 class Wave {
-    constructor(name, gameBoard, numOfEnemies,miniWaves, gameObjectManager, enemyGenerator) {
+    constructor(name, gameBoard, numOfEnemies,miniWaves, gameObjectManager, enemyGenerator, spaceShip) {
         this.Name = name;
         this.MiniWaves = miniWaves;
         this.NumberOfEnemies = numOfEnemies;
         this.ObjectManager = gameObjectManager;
         this.EnemyGenerator = enemyGenerator;
         this.GameBoard = gameBoard;
+        this.SpaceShip = spaceShip;
         
         this.ResetWave();
     }
@@ -60,7 +61,7 @@ class Wave {
             }
         } else if(this.ReleaseEnemiesSequence.enabled) {
             if(!this.ReleaseEnemiesSequence.miniWaveGenerated &&
-               this.EnemyGenerator.GenerateEnemy(this.GameBoard)) {
+               this.EnemyGenerator.GenerateEnemy(this.GameBoard, this.SpaceShip)) {
                 this.ReleaseEnemiesSequence.enemiesGenerated++;
 
                 if(this.ReleaseEnemiesSequence.enemiesGenerated == this.ReleaseEnemiesSequence.enemiesPerWave) {

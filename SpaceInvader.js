@@ -2,42 +2,22 @@ var windowHeight = window.innerHeight;
 
 var canvas = document.getElementById("gameCanvas");
 canvas.height = windowHeight;
-var ctx = canvas.getContext("2d");
 var backgroundImage = document.getElementById("background");
-
-var gameDetailsDisplayRectHeight = windowHeight * 0.08;
-
-
-var gameShip = new Spaceship(canvas.width / 2, canvas.height - gameDetailsDisplayRectHeight - 100,2);
-var gameDetails = new GameDetails(0, canvas.height - gameDetailsDisplayRectHeight, canvas.width, gameDetailsDisplayRectHeight);
-var GameBoard = {Height : canvas.height - gameDetailsDisplayRectHeight, Width : canvas.width};
-var objectManager = new GameObjectManager(GameBoard, gameShip);
-var enemyGenerator = new EnemyGenerator(GameBoard, objectManager);
-
+var ctx = canvas.getContext("2d");
 var Points = 0;
-var waveManager = new WaveManager(GameBoard, objectManager, enemyGenerator);
+
+var game = new Game(canvas);
 
 function Draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(backgroundImage,0, 0, canvas.width, canvas.height);
-    waveManager.Draw(ctx);
-    objectManager.Draw(ctx);
-    gameDetails.Draw(ctx);
-    
-}
-
-function Update(gameTime) {
-    waveManager.Update(gameTime);
-    enemyGenerator.Update(gameTime, GameBoard);
-    var pointsEarned = objectManager.Update(gameTime,GameBoard);
-
-    gameDetails.UpdatePoints(pointsEarned);
+    game.Draw(ctx);
 }
 
 var gameTime = 0;
 function Play() {
     gameTime += 10;
-    Update(gameTime);
+    game.Update(gameTime);
     Draw();
 }
 

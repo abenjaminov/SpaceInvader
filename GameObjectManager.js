@@ -12,11 +12,13 @@ class GameObjectManager {
         this.Enemies.forEach((e) => e.Draw(Context));
     }
 
-    Update(gameTime, gameBoard) {
-        this.SpaceShip.Update(GameBoard, gameTime, objectManager);
-        this.UpdateShots(gameTime, gameBoard)
+    Update(gameTime, gameBoard, isGamePlaying) {
+        if(isGamePlaying) {
+            this.SpaceShip.Update(gameBoard, gameTime, this);
+            this.UpdateShots(gameTime, gameBoard)
 
-        return this.UpdateEnemies(gameTime, gameBoard);
+            return this.UpdateEnemies(gameTime, gameBoard);
+        }
     }
 
     UpdateEnemies(gameTime, gameBoard) {
@@ -39,11 +41,14 @@ class GameObjectManager {
     
                         break;       
                     }
-                }   
+                }
+                
+                if(enemy.isDieing) {
+                    pointsEarned += enemy.Points;
+                }
             }
 
             if(!enemy.isAlive) {
-                pointsEarned += enemy.Points;
                 this.Enemies.splice(enemyIndex, 1);
                 enemyIndex--;
             }

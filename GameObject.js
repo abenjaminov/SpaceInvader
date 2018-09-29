@@ -16,4 +16,8 @@ class GameObject {
 
     Update(GameBoard, gameTime) {
     }
+
+    GetPoint() {
+        return {X : this.X, Y: this.Y};
+    }
 }
